@@ -8,22 +8,32 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import model.FirstGradeEquation;
+import model.IEquation;
+import model.InvalidParametersException;
 
-public class FirstGradeControl extends JButton {
+public class EquationSolver extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public FirstGradeControl(FirstGradeEquation firstGr, JTextField txtField) {
+	public EquationSolver(IEquation iequation, JTextField txtField) {
 		this.setText("Solve");
 		this.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				String s = txtField.getText();
-				firstGr.setParameters(parseFloatArray(s));
-				firstGr.setSolution();
+				try {
+					String s = txtField.getText();
+					iequation.setParameters(parseFloatArray(s));
+					iequation.setSolutions(); 
+				} catch (InvalidParametersException ip) {
+					JOptionPane.showMessageDialog(null,
+							"Valore inserito non valido, prego riprovare.",
+							"Attenzione!", 0);
+				} catch (NumberFormatException nf) {
+					JOptionPane.showMessageDialog(null,"Formato dei valori inseriti non corretto, prego riprovare",
+									"Attenzione!", 0);
+				}
 			}
 		});
 	}
@@ -35,13 +45,9 @@ public class FirstGradeControl extends JButton {
 
 		float[] v = new float[size];
 
-		try {
-			for (int i = 0; i < size; i++)
-				v[i] = Float.parseFloat(strTok.nextToken());
+		for (int i = 0; i < size; i++)
+			v[i] = Float.parseFloat(strTok.nextToken());
 
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null,
-					"Numero di parametri inseriti non valido!", "Attenzione!",0);}
 		return v;
 	}
 

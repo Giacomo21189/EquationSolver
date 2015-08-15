@@ -1,44 +1,37 @@
 package model;
 
-import java.util.Observable;
+//ho reso sia solutions sia parameters dei vettori eliminando il toString() che mi pareva un pò bruttino,
 
-import javax.swing.JOptionPane;
-
-public class FirstGradeEquation extends Observable implements IEquation {
+public class FirstGradeEquation implements IEquation {
 
 	private float a;
 	private float b;
-	private float solution;
+	private float[] parameters;			//perchè qui invece non succede come sotto?
+	private float[] solutions={};		//se elimino le parentesi graffe dà null pointer :(
 	private static final String form = "ax+b=0";
 
-	public void setParameters(float... p) {
+	public void setParameters(float... p) throws InvalidParametersException {
 
-		checkCorrectParamsValue(p);
-	}
-
-	private void checkCorrectParamsValue(float... p) {
 		switch (p.length) {
 		case 0:
-			JOptionPane.showMessageDialog(null,"Valore inserito non valido: non è stato inserito alcun parametro!",
-							"Attenzione!", 0);
-			break;
+		case 1:
+			throw new InvalidParametersException(); // controllare che succede
+													// se p.length è più di
+													// due!S
 		case 2:
-
 			if (p[0] != 0) {
 				a = p[0];
 				b = p[1];
-				setChanged();
-				notifyObservers();
 			} else {
-				JOptionPane.showMessageDialog(
-								null,
-								"Valore inserito non valido: se a=0 non è un'equazione di primo grado!",
-								"Attenzione!", 0);}
-			break;
-		default:
-				JOptionPane.showMessageDialog(null,
-						"Numero di parametri inseriti non valido!", "Attenzione!",
-						0);}};
+				throw new InvalidParametersException();
+			}
+		}
+	}
+
+	@Override
+	public float[] getParameters() {
+		return parameters;
+	}
 
 	@Override
 	public String getForm() {
@@ -46,14 +39,14 @@ public class FirstGradeEquation extends Observable implements IEquation {
 	}
 
 	@Override
-	public void setSolution() {
-		this.solution = -b / a;
-		setChanged();
-		notifyObservers();
+	public void setSolutions() {
+		float s[]={-b/a};
+		this.solutions = s;
 	}
 
-	public String toString() {
-		return "" + solution;
+	@Override
+	public float[] getSolutions() {
+		return solutions;
 	}
 
 }

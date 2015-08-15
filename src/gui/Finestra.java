@@ -1,17 +1,28 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import model.FirstGradeEquation;
+import model.ObservableEquation;
+import model.SecondGradeEquation;
 
 public class Finestra extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	private JPanel panel=new Panel();  
-//	private ProxyEquation proxy= new ProxyEquation();
+	
+	private ObservableEquation obsEq= new ObservableEquation();
+	private JTextField TxtinsParam= new JTextField();
+	
+	private JPanel panel=new Panel(obsEq, TxtinsParam);  
+	
 	
 	public Finestra() {
 		setTitle("Risolutore di equazioni");
@@ -42,16 +53,24 @@ public class Finestra extends JFrame {
 		
 		
 		JMenuItem firstGr = new JMenuItem("First Grade");
-//		firstGr.setText("First Grade");
-//		firstGr.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				proxy.setGenEq(new FirstGradeEquation());
-//			}
-//		});
+		firstGr.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				obsEq.setIequation(new FirstGradeEquation());
+			}
+		});
+		;
 		eqAlg.add(firstGr);
 		JMenuItem secondGr = new JMenuItem("Second Grade");
+		secondGr.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				obsEq.setIequation(new SecondGradeEquation());
+				
+			}
+		});
 		eqAlg.add(secondGr); 
 		JMenuItem thirdGr = new JMenuItem("Third Grade");
 		eqAlg.add(thirdGr);

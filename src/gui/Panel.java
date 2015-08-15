@@ -7,38 +7,37 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import model.ObservableEquation;
 import view.FirstGradeView;
-import model.FirstGradeEquation;
-import control.FirstGradeControl;
+import control.EquationSolver;
 
 public class Panel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private FirstGradeEquation firstGrdEq = new FirstGradeEquation();
-	private JTextField TxtinsParam = new JTextField("");
 
-	public Panel() {
 
+	public Panel(ObservableEquation eq, JTextField TxtinsParam) {
+		
 		this.setLayout(new GridLayout(4, 1));
 
-		createDescriptPanel(firstGrdEq);
-		createInsPanel();
-		createControlPanel();
-		createSolutionPanel();
+		createDescriptPanel(eq);
+		createInsPanel(TxtinsParam);
+		createControlPanel(eq,TxtinsParam);
+		createSolutionPanel(eq);
 		this.setVisible(true);
 	}
 
-	private void createDescriptPanel(FirstGradeEquation firstGrdEq) {
+	private void createDescriptPanel(ObservableEquation eq) {
 		JPanel descriptPanel = new JPanel();
 		descriptPanel.setLayout(new GridLayout(1, 2));
 		JLabel LblEquation = new JLabel("Equation: ");
 		descriptPanel.add(LblEquation);
-		JLabel LblForm = new JLabel(firstGrdEq.getForm());
+		JLabel LblForm = new JLabel(eq.getForm());
 		descriptPanel.add(LblForm);
 		this.add(descriptPanel);
 	}
 
-	private void createInsPanel() {
+	private void createInsPanel(JTextField TxtinsParam) {
 		JPanel insPanel = new JPanel();
 		insPanel.setLayout(new GridLayout(2, 1));
 		JLabel lbl= new JLabel("Parameters: ");
@@ -46,27 +45,27 @@ public class Panel extends JPanel {
 		JPanel subInsPanel= new JPanel(); 
 		subInsPanel.setLayout(new GridLayout(1,2));
 		subInsPanel.add(TxtinsParam);
-		JLabel lblDescription=new JLabel("Inserire il valore dei parametri da inserire spaziati da un punto e virgola ';' "); 
+		JLabel lblDescription=new JLabel("Inserire il valore dei parametri spaziati da un punto e virgola ';' "); 
 		JScrollPane scrollPanel = new JScrollPane(lblDescription);
 		subInsPanel.add(scrollPanel);
 		insPanel.add(subInsPanel);
 		this.add(insPanel);
 	}
 
-	private void createControlPanel() {
+	private void createControlPanel(ObservableEquation eq, JTextField TxtinsParam) {
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new GridLayout(1, 1));
-		FirstGradeControl btnSolve = new FirstGradeControl(this.firstGrdEq, this.TxtinsParam);
+		EquationSolver btnSolve = new EquationSolver(eq, TxtinsParam);
 		controlPanel.add(btnSolve);
 		this.add(controlPanel);
 	}
 
-	private void createSolutionPanel() {
+	private void createSolutionPanel(ObservableEquation eq) {
 		JPanel solutionPanel = new JPanel();
 		solutionPanel.setLayout(new GridLayout(2, 1));
 		JLabel lblsolution = new JLabel("Solutions: ");
 		solutionPanel.add(lblsolution);
-		FirstGradeView viewFirstGr = new FirstGradeView(firstGrdEq);
+		FirstGradeView viewFirstGr = new FirstGradeView(eq);
 		solutionPanel.add(viewFirstGr);
 		this.add(solutionPanel);
 	}

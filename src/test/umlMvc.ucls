@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="control.FirstGradeControl" project="EquationSolver" 
-    file="/EquationSolver/src/control/FirstGradeControl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="control.EquationSolver" project="EquationSolver" 
+    file="/EquationSolver/src/control/EquationSolver.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="491" y="298"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -36,10 +36,6 @@
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="7">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

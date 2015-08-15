@@ -3,6 +3,8 @@ package model;
 public interface IEquation {
 
 	public String getForm();
-	public void setSolution();
-	void setParameters(float...p);
+	float[] getParameters();
+	void setParameters(float...f) throws InvalidParametersException;
+	float[] getSolutions();
+	void setSolutions();
 }
