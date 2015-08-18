@@ -21,7 +21,7 @@ public class FirstGradeEquationTest {
 		}
 		
 		System.out.println(fge.getForm()); 
-		fge.setSolutions();
+		fge.solve(v);
 		
 		float l[]={-2.6f, 5}; 
 		try {
@@ -29,7 +29,7 @@ public class FirstGradeEquationTest {
 		} catch (InvalidParametersException ip) {
 			System.out.println("valore inserito non corretto1");
 		}
-		fge.setSolutions();
+		fge.solve(l);
 		float[] a=fge.getSolutions();
 		System.out.println(""+a.length);
 		String s="";

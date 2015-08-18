@@ -14,9 +14,10 @@ import control.EquationSolver;
 public class Panel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
-
-	public Panel(ObservableEquation eq, JTextField TxtinsParam) {
+	private JTextField TxtinsParam= new JTextField();
+	
+	
+	public Panel(ObservableEquation eq) {
 		
 		this.setLayout(new GridLayout(4, 1));
 
@@ -27,24 +28,24 @@ public class Panel extends JPanel {
 		this.setVisible(true);
 	}
 
-	private void createDescriptPanel(ObservableEquation eq) {
+	public void createDescriptPanel(ObservableEquation eq) {
 		JPanel descriptPanel = new JPanel();
 		descriptPanel.setLayout(new GridLayout(1, 2));
-		JLabel LblEquation = new JLabel("Equation: ");
-		descriptPanel.add(LblEquation);
-		JLabel LblForm = new JLabel(eq.getForm());
-		descriptPanel.add(LblForm);
+		JLabel lblEquation = new JLabel("Equation: ");
+		descriptPanel.add(lblEquation);
+		JLabel lblForm = new JLabel(""+ eq.getForm());
+		descriptPanel.add(lblForm);
 		this.add(descriptPanel);
 	}
 
-	private void createInsPanel(JTextField TxtinsParam) {
+	private void createInsPanel(JTextField txtinsParam) {
 		JPanel insPanel = new JPanel();
 		insPanel.setLayout(new GridLayout(2, 1));
 		JLabel lbl= new JLabel("Parameters: ");
 		insPanel.add(lbl);
 		JPanel subInsPanel= new JPanel(); 
 		subInsPanel.setLayout(new GridLayout(1,2));
-		subInsPanel.add(TxtinsParam);
+		subInsPanel.add(txtinsParam);
 		JLabel lblDescription=new JLabel("Inserire il valore dei parametri spaziati da un punto e virgola ';' "); 
 		JScrollPane scrollPanel = new JScrollPane(lblDescription);
 		subInsPanel.add(scrollPanel);
@@ -60,7 +61,7 @@ public class Panel extends JPanel {
 		this.add(controlPanel);
 	}
 
-	private void createSolutionPanel(ObservableEquation eq) {
+	public void createSolutionPanel(ObservableEquation eq) {
 		JPanel solutionPanel = new JPanel();
 		solutionPanel.setLayout(new GridLayout(2, 1));
 		JLabel lblsolution = new JLabel("Solutions: ");

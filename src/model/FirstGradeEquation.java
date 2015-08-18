@@ -4,24 +4,22 @@ package model;
 
 public class FirstGradeEquation implements IEquation {
 
-	private float a;
-	private float b;
-	private float[] parameters;			//perchè qui invece non succede come sotto?
-	private float[] solutions={};		//se elimino le parentesi graffe dà null pointer :(
 	private static final String form = "ax+b=0";
+	private float[] parameters={2};
+	private float[] solutions={1};
 
+	@Override
+	public String getForm() {
+		return form;
+	}
+	
 	public void setParameters(float... p) throws InvalidParametersException {
-
 		switch (p.length) {
-		case 0:
-		case 1:
-			throw new InvalidParametersException(); // controllare che succede
-													// se p.length è più di
-													// due!S
+		case 0: case 1: default:
+			throw new InvalidParametersException();
 		case 2:
-			if (p[0] != 0) {
-				a = p[0];
-				b = p[1];
+			if (p[0]!= 0) {
+				this.parameters=p;
 			} else {
 				throw new InvalidParametersException();
 			}
@@ -34,19 +32,29 @@ public class FirstGradeEquation implements IEquation {
 	}
 
 	@Override
-	public String getForm() {
-		return form;
+	public void solve(float... f) throws InvalidParametersException, ArithmeticException {
+		float a=f[0]; 
+		float b=f[1]; 
+		switch (f.length) {
+		case 1:
+		solutions[0]=-b/a;
+		default:
+			throw new InvalidParametersException();
+		}
 	}
-
-	@Override
-	public void setSolutions() {
-		float s[]={-b/a};
-		this.solutions = s;
-	}
-
+	
 	@Override
 	public float[] getSolutions() {
 		return solutions;
 	}
+
+	@Override
+	public String parseVectToString(float[] v){
+		String s="";
+		for (int i = 0; i < v.length; i++) {			//verificare perchè non devo mettere v.length-1
+			s+=v[i]+", ";
+		}
+		return s;
+		};
 
 }
