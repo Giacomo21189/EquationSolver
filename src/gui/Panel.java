@@ -8,33 +8,29 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import model.ObservableEquation;
-import view.FirstGradeView;
+import view.DescriptPanel;
+import view.LblView;
 import control.EquationSolver;
 
 public class Panel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
 	private JTextField TxtinsParam= new JTextField();
-	
-	
-	public Panel(ObservableEquation eq) {
+
+	public Panel(ObservableEquation obsEq) {
 		
 		this.setLayout(new GridLayout(4, 1));
-
-		createDescriptPanel(eq);
-		createInsPanel(TxtinsParam);
-		createControlPanel(eq,TxtinsParam);
-		createSolutionPanel(eq);
+		this.createDescriptPanel(obsEq);
+		this.createInsPanel(TxtinsParam);
+		this.createControlPanel(obsEq,TxtinsParam);
+		this.createSolutionPanel(obsEq);
 		this.setVisible(true);
 	}
-
-	public void createDescriptPanel(ObservableEquation eq) {
-		JPanel descriptPanel = new JPanel();
-		descriptPanel.setLayout(new GridLayout(1, 2));
-		JLabel lblEquation = new JLabel("Equation: ");
-		descriptPanel.add(lblEquation);
-		JLabel lblForm = new JLabel(""+ eq.getForm());
-		descriptPanel.add(lblForm);
+	
+	
+	private void createDescriptPanel(ObservableEquation obs) {
+		DescriptPanel descriptPanel = new DescriptPanel(obs);
 		this.add(descriptPanel);
 	}
 
@@ -61,13 +57,14 @@ public class Panel extends JPanel {
 		this.add(controlPanel);
 	}
 
-	public void createSolutionPanel(ObservableEquation eq) {
-		JPanel solutionPanel = new JPanel();
-		solutionPanel.setLayout(new GridLayout(2, 1));
-		JLabel lblsolution = new JLabel("Solutions: ");
-		solutionPanel.add(lblsolution);
-		FirstGradeView viewFirstGr = new FirstGradeView(eq);
-		solutionPanel.add(viewFirstGr);
+	private void createSolutionPanel(ObservableEquation eq) {
+
+		JPanel solutionPanel= new JPanel();
+		solutionPanel.setLayout(new GridLayout(2,1));
+		JLabel lblSolutions= new JLabel("Solutions: "); 
+		solutionPanel.add(lblSolutions); 
+		LblView lblView= new LblView(eq);
+		solutionPanel.add(lblView);
 		this.add(solutionPanel);
 	}
 

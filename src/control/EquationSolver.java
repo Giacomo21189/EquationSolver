@@ -8,14 +8,15 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import model.IEquation;
 import model.InvalidParametersException;
+import model.ObservableEquation;
+import model.WrongGradeEquationException;
 
 public class EquationSolver extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public EquationSolver(IEquation iequation, JTextField txtField) {
+	public EquationSolver(ObservableEquation obsEq, JTextField txtField) {
 		this.setText("Solve");
 		this.addActionListener(new ActionListener() {
 
@@ -24,8 +25,8 @@ public class EquationSolver extends JButton {
 
 				try {
 					String s = txtField.getText();
-					iequation.setParameters(parseFloatArray(s));
-					iequation.setSolutions(); 
+					obsEq.setParameters(parseFloatArray(s));
+					obsEq.solve(obsEq.getParameters());
 				} catch (InvalidParametersException ip) {
 					JOptionPane.showMessageDialog(null,
 							"Valore inserito non valido, prego riprovare.",
@@ -33,6 +34,12 @@ public class EquationSolver extends JButton {
 				} catch (NumberFormatException nf) {
 					JOptionPane.showMessageDialog(null,"Formato dei valori inseriti non corretto, prego riprovare",
 									"Attenzione!", 0);
+				} catch (WrongGradeEquationException e) {
+					JOptionPane.showMessageDialog(null,"Equazione non corretta",
+							"Attenzione!", 0);
+				} catch(NullPointerException npe){
+					JOptionPane.showMessageDialog(null,"Specificare il tipo di equazione da risolvere",
+							"Attenzione!", 0);
 				}
 			}
 		});

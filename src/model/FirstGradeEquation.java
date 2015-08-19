@@ -5,8 +5,8 @@ package model;
 public class FirstGradeEquation implements IEquation {
 
 	private static final String form = "ax+b=0";
-	private float[] parameters={2};
-	private float[] solutions={1};
+	private float[] parameters=new float[2];
+	private float[] solutions=new float[1];
 
 	@Override
 	public String getForm() {
@@ -33,28 +33,20 @@ public class FirstGradeEquation implements IEquation {
 
 	@Override
 	public void solve(float... f) throws InvalidParametersException, ArithmeticException {
-		float a=f[0]; 
-		float b=f[1]; 
-		switch (f.length) {
-		case 1:
-		solutions[0]=-b/a;
-		default:
-			throw new InvalidParametersException();
+		try {
+			float a=f[0]; 
+			float b=f[1]; 
+			solutions[0]=-b/a;
+		} catch (ArithmeticException e) {
+			e.printStackTrace();
 		}
-	}
+		}
 	
 	@Override
 	public float[] getSolutions() {
 		return solutions;
 	}
 
-	@Override
-	public String parseVectToString(float[] v){
-		String s="";
-		for (int i = 0; i < v.length; i++) {			//verificare perchè non devo mettere v.length-1
-			s+=v[i]+", ";
-		}
-		return s;
-		};
+
 
 }

@@ -4,9 +4,9 @@ public class SecondGradeEquation implements IEquation {
 
 	private static final String form= "ax*x+bx+c";
 	
-	private float[] parameters= new float[3];
-	private float[] solutions=new float[2];
-	
+	private float[] parameters= new float[3]; 
+	private float[] solutions= new float[2];
+
 	@Override
 	public String getForm() {
 		return form;
@@ -19,7 +19,7 @@ public class SecondGradeEquation implements IEquation {
 	}
 
 	@Override
-	public void setParameters(float... f) throws InvalidParametersException {
+	public void setParameters(float... f) throws InvalidParametersException, WrongGradeEquationException {
 		switch (f.length) {
 		case 0: case 1: case 2: default: 
 			throw new InvalidParametersException();
@@ -27,7 +27,7 @@ public class SecondGradeEquation implements IEquation {
 			if (f[0]!=0) {
 				this.parameters=f;
 			}else{
-				throw new InvalidParametersException();}
+				throw new WrongGradeEquationException();}
 			}
 		}
 	
@@ -41,15 +41,10 @@ public class SecondGradeEquation implements IEquation {
 			float a=f[0]; 		
 			float b=f[1]; 
 			float c=f[2];
-			switch (f.length) {
-			case 1: case 2: default:
-				throw new InvalidParametersException();
-			case 3: 
 				try {
-					if (a!=0) {
 						if (b!=0 && c!=0) {
-							this.solutions[0]=(float) ((-b+(Math.sqrt(b*b-4*a*c)))/(2*a));	//manca una radice!
-							this.solutions[1]=(float) ((-b-(Math.sqrt(b*b-4*a*c)))/(2*a));	//manca una radice!
+							this.solutions[0]=(float) ((-b+(Math.sqrt(b*b-4*a*c)))/(2*a));	//a è sempre diverso da zero, perchè l'ho detto in setParameters()!
+							this.solutions[1]=(float) ((-b-(Math.sqrt(b*b-4*a*c)))/(2*a));	//e questo metodo prende in ingresso getParameters();
 						}if (b==0 && c!=0) {
 							this.solutions[0]= (float) Math.sqrt(c/a); 
 							this.solutions[1]= (float) Math.sqrt(-c/a);
@@ -59,22 +54,15 @@ public class SecondGradeEquation implements IEquation {
 						}if (b==0 && c==0) {
 							this.solutions[0]=0; 
 							this.solutions[1]=0;
-						}}else{throw new InvalidParametersException();
 						}
+						
 						
 				} catch (ArithmeticException e) {
 					throw new ArithmeticException();
 				}}
-			}
+			
 						
-		@Override
-		public String parseVectToString (float[] v) {
-		String s="";
-		for (int i = 0; i < v.length; i++) {			//verificare perchè non devo mettere v.length-1
-			s+=v[i]+", ";
-		}
-		return s;
-		};
+		
 	
 	
 }

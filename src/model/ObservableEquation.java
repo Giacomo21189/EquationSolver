@@ -6,12 +6,11 @@ public class ObservableEquation extends Observable implements IEquation {
 
 	private IEquation iequation; 
 	
-	public ObservableEquation(IEquation ie) {
-		this.iequation=ie;
-	}
-
 	public void setIequation(IEquation iequation) {
 		this.iequation = iequation;
+		super.setChanged();
+		super.notifyObservers();
+		
 	}
 
 	@Override
@@ -27,7 +26,7 @@ public class ObservableEquation extends Observable implements IEquation {
 	}
 
 	@Override
-	public void setParameters(float... p) throws InvalidParametersException {
+	public void setParameters(float... p) throws InvalidParametersException, WrongGradeEquationException {
 		iequation.setParameters(p);
 		setChanged();
 		notifyObservers();
@@ -35,18 +34,12 @@ public class ObservableEquation extends Observable implements IEquation {
 
 	@Override
 	public float[] getParameters() {
-
 		return iequation.getParameters();
 	}
 
 	@Override
 	public float[] getSolutions() {
 		return iequation.getSolutions();
-	}
-
-	@Override
-	public String parseVectToString(float[] v) {
-		return iequation.parseVectToString(v);
 	}
 
 
