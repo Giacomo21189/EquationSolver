@@ -21,8 +21,7 @@ public class LblView extends JLabel implements Observer{
 	}
 	@Override
 	public void update(Observable arg0, Object arg1){
-		Utils util= new Utils();
-		this.setText(util.parseVectToString(obsEq.getSolutions()));
+		this.setText(Utils.parseVectToString(obsEq.getSolutions()));
 		
 	}
 	
